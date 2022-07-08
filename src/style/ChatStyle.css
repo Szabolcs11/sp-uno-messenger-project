@@ -9,7 +9,11 @@
     position: relative;
 }
 
-
+@media only screen and (max-width: 800px) {
+    .Chat-Container {
+        width: 60vw;
+    }
+}
 
 
 .Chat-Control {
