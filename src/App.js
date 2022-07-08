@@ -5,6 +5,13 @@ import { Route, Routes } from 'react-router-dom';
 import Auth from "./Pages/Auth";
 import Index from "./Pages/Index";
 
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
+
+const client = new ApolloClient({
+  uri: "http://localhost:1337/graphql",
+  cache: new InMemoryCache()
+})
+
 function App() {
   const [user, setUser] = useState(null)
   const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
@@ -20,7 +27,7 @@ function App() {
       }).then(res=> {
         // console.log(res.data)
           if (res.data) {
-            setUser(true)
+            setUser(res.data)
           }
           else {
             setUser(false)
@@ -35,16 +42,18 @@ function App() {
   }
 
   return (
-    <div className="Main-Container">
-      <Routes  location={user ? "/" : "/auth"}>
-        {user ? 
-          <Route path='/' element={<Index/>}></Route>
-        : 
-          <Route path="/auth" element={<Auth/>}></Route>
-        }
+    <ApolloProvider client={client}>
+      <div className="Main-Container">
+        <Routes  location={user ? "/" : "/auth"}>
+          {user ? 
+            <Route path='/' element={<Index UserDatas={user}/>}></Route>
+          : 
+            <Route path="/auth" element={<Auth/>}></Route>
+          }
 
-      </Routes>
-    </div>
+        </Routes>
+      </div>
+    </ApolloProvider>
   );
 }
 
