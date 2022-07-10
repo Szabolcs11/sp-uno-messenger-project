@@ -1,0 +1,5 @@
+1. If statement a QUERY ben. Esetleg express szerveren kellene kiszűrni, hogy melyik üzenetet írta ő?
+
+2. SENDMESSAGE funkcióba hogy rakunk bele argumenteket? [UI]
+
+3. Subscription, real time communication
